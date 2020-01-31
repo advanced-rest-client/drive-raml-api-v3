@@ -1,0 +1,164 @@
+#%RAML 1.0 DataType
+
+displayName: Capabilities
+description: |
+  Capabilities the current user has on this file. Each capability corresponds to a fine-grained action that a user may take.
+
+uses:
+  Annotations: ../libraries/annotations.raml
+
+type: object
+
+properties:
+  canEdit:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can edit this file. Other factors may limit the type of changes a user can make to a file. For example, see `canChangeCopyRequiresWriterPermission` or `canModifyContent`.
+  canComment:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can comment on this file.
+  canShare:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can modify the sharing settings for this file.
+  canCopy:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can copy this file. For an item in a shared drive, whether the current user can copy non-folder descendants of this item, or this item itself if it is not a folder.
+  canReadRevisions:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can read the revisions resource of this file. For a shared drive item, whether revisions of non-folder descendants of this item, or this item itself if it is not a folder, can be read.
+  canAddChildren:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can add children to this folder. This is always false when the item is not a folder.
+  canDelete:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can delete this file.
+  canDownload:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can download this file.
+  canListChildren:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can list the children of this folder. This is always false when the item is not a folder.
+  canMoveTeamDriveItem:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveItemWithinDrive" or "canMoveItemOutOfDrive" instead.
+  canMoveItemIntoTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveItemOutOfDrive" instead.
+  canReadTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canReadDrive" instead.
+  canRemoveChildren:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can remove children from this folder. This is always false when the item is not a folder. For a folder in a shared drive, use `canDeleteChildren` or `canTrashChildren` instead.
+  canRename:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can rename this file.
+  canTrash:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can move this file to trash.
+  canUntrash:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can restore this file from trash.
+  canChangeCopyRequiresWriterPermission:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can change the `copyRequiresWriterPermission` restriction of this file.
+  canDeleteChildren:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can delete children of this folder. This is false when the item is not a folder. Only populated for items in shared drives.
+  canMoveChildrenOutOfTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveChildrenOutOfDrive" instead.
+  canMoveChildrenWithinTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveChildrenWithinDrive" instead.
+  canMoveItemOutOfTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveItemOutOfDrive" instead.
+  canMoveItemWithinTeamDrive:
+    type: boolean
+    required: false
+    (Annotations.deprecated):
+      Message: This property is deprecated.
+      Hint: Use "canMoveItemWithinDrive" instead.
+  canTrashChildren:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can trash children of this folder. This is false when the item is not a folder. Only populated for items in shared drives.
+  canMoveChildrenOutOfDrive:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can move children of this folder outside of the shared drive. This is false when the item is not a folder. Only populated for items in shared drives.
+  canMoveChildrenWithinDrive:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can move children of this folder within the shared drive. This is false when the item is not a folder. Only populated for items in shared drives.
+  canMoveItemOutOfDrive:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can move this item outside of this drive by changing its parent. Note that a request to change the parent of the item may still fail depending on the new parent that is being added.
+  canMoveItemWithinDrive:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can move this item within this shared drive. Note that a request to change the parent of the item may still fail depending on the new parent that is being added. Only populated for items in shared drives.
+  canReadDrive:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can read the shared drive to which this file belongs. Only populated for items in shared drives.
+  canModifyContent:
+    type: boolean
+    required: false
+    description: |
+      Whether the current user can modify the content of this file.

@@ -1,0 +1,139 @@
+#%RAML 1.0 DataType
+
+uses:
+  Annotations: ../libraries/annotations.raml
+
+displayName: Image media metadata
+description: Additional metadata about image media, if available.
+type: object
+properties:
+  width:
+    (Annotations.readOnly):
+    type: integer
+    minimum: 0
+    required: false
+    description: |
+      The width of the image in pixels.
+  height:
+    (Annotations.readOnly):
+    type: integer
+    minimum: 0
+    required: false
+    description: |
+      The height of the image in pixels.
+  rotation:
+    (Annotations.readOnly):
+    type: integer
+    minimum: 0
+    maximum: 359
+    required: false
+    description: |
+      The rotation in clockwise degrees from the image's original orientation.
+  location: !include location.raml
+  time:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The date and time the photo was taken (EXIF DateTime).
+  cameraMake:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The make of the camera used to create the photo.
+  cameraModel:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The model of the camera used to create the photo.
+  exposureTime:
+    (Annotations.readOnly):
+    type: number
+    format: float
+    required: false
+    description: |
+      The length of the exposure, in seconds.
+  aperture:
+    (Annotations.readOnly):
+    type: number
+    format: float
+    required: false
+    description: |
+      The aperture used to create the photo (f-number).
+  flashUsed:
+    (Annotations.readOnly):
+    type: boolean
+    required: false
+    description: |
+      Whether a flash was used to create the photo.
+  focalLength:
+    (Annotations.readOnly):
+    type: number
+    format: float
+    required: false
+    description: |
+      The focal length used to create the photo, in millimeters.
+  isoSpeed:
+    (Annotations.readOnly):
+    type: integer
+    required: false
+    description: |
+      The ISO speed used to create the photo.
+  meteringMode:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The metering mode used to create the photo.
+  sensor:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The type of sensor used to create the photo.
+  exposureMode:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The exposure mode used to create the photo.
+  colorSpace:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The color space of the photo.
+  whiteBalance:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The white balance mode used to create the photo.
+  exposureBias:
+    (Annotations.readOnly):
+    type: number
+    format: float
+    required: false
+    description: |
+      The exposure bias of the photo (APEX value).
+  maxApertureValue:
+    (Annotations.readOnly):
+    type: number
+    format: float
+    required: false
+    description: |
+      The smallest f-number of the lens at the focal length used to create the photo (APEX value).
+  subjectDistance:
+    (Annotations.readOnly):
+    type: integer
+    required: false
+    description: |
+      The distance to the subject of the photo, in meters.
+  lens:
+    (Annotations.readOnly):
+    type: string
+    required: false
+    description: |
+      The lens used to create the photo.

@@ -1,0 +1,14 @@
+#%RAML 1.0 DataType
+
+description: |
+  A base response object.
+  Each response has corresponding to the resource property containing a list of resources. For example a `File`s list response contains `files` property which is a list of `File` resources.
+
+type: object
+properties:
+  kind:
+    type: string
+    description: Identifies what kind of resource this is.
+  nextPageToken:
+    type: string
+    description: The page token for the next page of files. This will be absent if the end of the files list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.

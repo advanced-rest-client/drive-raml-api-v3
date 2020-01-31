@@ -1,0 +1,30 @@
+#%RAML 1.0 DataType
+
+uses:
+  Annotations: ../libraries/annotations.raml
+
+displayName: Location
+description: Geographic location information stored in the image.
+type: object
+properties:
+  latitude:
+    (Annotations.readOnly):
+    type: number
+    format: double
+    required: false
+    description: |
+      The latitude stored in the image.
+  longitude:
+    (Annotations.readOnly):
+    type: number
+    format: double
+    required: false
+    description: |
+      The longitude stored in the image.
+  altitude:
+    (Annotations.readOnly):
+    type: number
+    format: double
+    required: false
+    description: |
+      The altitude stored in the image.

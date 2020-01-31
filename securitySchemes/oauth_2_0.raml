@@ -1,0 +1,31 @@
+#%RAML 1.0 SecurityScheme
+
+description: |
+  This request requires authorization with at least one of the following scopes:
+
+  - https://www.googleapis.com/auth/drive
+  - https://www.googleapis.com/auth/drive.file
+  - https://www.googleapis.com/auth/drive.readonly
+  - https://www.googleapis.com/auth/drive.metadata.readonly
+  - https://www.googleapis.com/auth/drive.appdata
+  - https://www.googleapis.com/auth/drive.metadata
+  - https://www.googleapis.com/auth/drive.photos.readonly
+
+  Some scopes are restricted and require a security assessment for your app to use them. For more information, see the Authentication and authorization page.
+
+type: OAuth 2.0
+describedBy:
+  headers:
+    Authorization:
+      required: true
+      description: |
+        Used to send a valid OAuth 2 access token.
+  responses:
+    401:
+      description: |
+        Authorization error.
+settings:
+  authorizationUri: https://accounts.google.com/o/oauth2/auth
+  accessTokenUri: https://accounts.google.com/o/oauth2/token
+  authorizationGrants: [ implicit, authorization_code ]
+  scopes: [ "https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.appdata", "https://www.googleapis.com/auth/drive.apps.readonly", "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive.metadata.readonly", "https://www.googleapis.com/auth/drive.readonly", "https://www.googleapis.com/auth/drive.scripts", "https://www.googleapis.com/auth/drive.photos.readonly", "https://www.googleapis.com/auth/drive.metadata" ]

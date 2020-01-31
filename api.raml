@@ -1,0 +1,119 @@
+#%RAML 1.0
+title: Google Drive
+version: v3
+baseUri: https://www.googleapis.com/drive/{version}
+mediaType: application/json
+securitySchemes:
+  oauth_2_0: !include securitySchemes/oauth_2_0.raml
+
+types:
+  File: !include types/file.raml
+  ListResponse: !include types/list-response.raml
+
+uses:
+  Annotations: libraries/annotations.raml
+
+securedBy: [oauth_2_0]
+
+/files:
+  get:
+    displayName: list
+    description: |
+      Lists or searches files.
+
+      This method accepts the q parameter, which is a search query combining one or more search terms. For more information, see the Search for files guide.
+    responses:
+      200:
+        body:
+          type: ListResponse
+          properties:
+            files:
+              type: File[]
+              description: |
+                The list of files.
+                If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.
+            incompleteSearch:
+              type: boolean
+              description: |
+                Whether the search process was incomplete.
+                If true, then some search results may be missing, since all documents were not searched. This may occur when searching multiple drives with the `allDrives` corpora, but all corpora could not be searched.
+                When this happens, it is suggested that clients narrow their query by choosing a different corpus such as `user` or `drive`.
+  post:
+    displayName: create
+    description: |
+      Creates a new file.
+
+      This method supports an /upload URI and accepts uploaded media with the following characteristics:
+
+      - Maximum file size: 5120GB
+      - Accepted Media MIME types: `*/*`
+
+      This method provides media upload functionality through two separate URIs. For more details, see the document on media upload.
+
+      - Upload URI, for media upload requests:
+        ```
+        POST https://www.googleapis.com/upload/drive/v3/files
+        ```
+      - Metadata URI, for metadata-only requests:
+        ```
+        POST https://www.googleapis.com/drive/v3/files
+        ```
+    queryParameters:
+      uploadType:
+        type: string
+        enum: [media, multipart, resumable]
+        description: |
+          The type of upload request to the `/upload` URI. Acceptable values are:
+
+          - **media** - Simple upload. Upload the media only, without any metadata.
+          - **multipart** - Multipart upload. Upload both the media and its metadata, in a single request.
+          - **resumable** - Resumable upload. Upload the file in a resumable fashion, using a series of at least two requests where the first request includes the metadata.
+      ignoreDefaultVisibility:
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.
+      keepRevisionForever:
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Google Drive. Only 200 revisions for the file can be kept forever. If the limit is reached, try deleting pinned revisions.
+      ocrLanguage:
+        type: string
+        required: false
+        description: |
+          A language hint for OCR processing during image import (ISO 639-1 code).
+      supportsAllDrives:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: This parameter will only be effective until June 1, 2020. Afterwards all applications are assumed to support shared drives
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether the requesting application supports both My Drives and shared drives.
+      supportsTeamDrives:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: Use "supportsAllDrives" instead.
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether the requesting application supports both My Drives and shared drives.
+      useContentAsIndexableText:
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether to use the uploaded content as indexable text.
+    body:
+      application/json:
+        type: File
+    responses:
+      201:
+        body:
+          application/json:
+            type: File

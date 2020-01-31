@@ -1,0 +1,12 @@
+#%RAML 1.0 DataType
+
+displayName: Content hints
+description: Additional information about the content of the file. These fields are never populated in responses.
+
+properties:
+  thumbnail?: !include thumbnail.raml
+  indexableText:
+    type: string
+    description: |
+      Text to be indexed for the file to improve fullText queries.
+      This is limited to 128KB in length and may contain HTML elements.

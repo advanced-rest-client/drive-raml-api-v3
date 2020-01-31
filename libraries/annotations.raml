@@ -1,0 +1,19 @@
+#%RAML 1.0 Library
+
+annotationTypes:
+  deprecated:
+    type: object
+    properties:
+      Message:
+        type: string
+        description: Deprecation message to render to the user (if possible)
+        required: true
+        default: This property is deprecated.
+      Hint:
+        type: string
+        description: A hint message what to use instead.
+        required: false
+        example: Use other property instead.
+  readOnly:
+    displayName: Read only.
+    type: nil
