@@ -22,6 +22,116 @@ securedBy: [oauth_2_0]
       Lists or searches files.
 
       This method accepts the q parameter, which is a search query combining one or more search terms. For more information, see the Search for files guide.
+    queryParameters:
+      corpora:
+        type: string
+        required: false
+        description: |
+          Bodies of items (files/documents) to which the query applies.
+
+          Supported bodies are `user`, `domain`, `drive` and `allDrives`. Prefer `user` or `drive` to `allDrives` for efficiency.
+        enum: [user, domain, drive, allDrives]
+      corpus:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: Use 'corpora' instead.
+        type: string
+        required: false
+        enum: [domain, user]
+        description: |
+          The source of files to list.
+
+          Acceptable values are:
+          - **"domain"**: Files shared to the user's domain.
+          - **"user"**: Files owned by or shared to the user.
+      driveId:
+        type: string
+        required: false
+        description: ID of the shared drive to search.
+      fields:
+        type: string
+        required: false
+        description: |
+          The paths of the fields you want included in the response. If not specified, the response includes a default set of fields specific to this method.
+          For development you can use the special value * to return all fields, but you'll achieve greater performance by only selecting the fields you need.
+
+          For more information see the partial responses documentation.
+      includeItemsFromAllDrives:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: This parameter will only be effective until June 1, 2020. Afterwards shared drive items will be included in the results.
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether both My Drive and shared drive items should be included in results.
+      includeTeamDriveItems:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: Use "includeItemsFromAllDrives" instead
+        type: boolean
+        required: false
+        default: false
+      orderBy:
+        type: string
+        required: false
+        example: folder,modifiedTime desc,name
+        description: |
+          A comma-separated list of sort keys.
+          Valid keys are `createdTime`, `folder`, `modifiedByMeTime`, `modifiedTime`, `name`, `name_natural`, `quotaBytesUsed`, `recency`, `sharedWithMeTime`, `starred`, and `viewedByMeTime`.
+          Each key sorts ascending by default, but may be reversed with the `desc` modifier.
+
+          Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored.
+      pageSize:
+        type: integer
+        required: false
+        default: 100
+        minimum: 1
+        maximum: 1000
+        description: |
+          The maximum number of files to return per page.
+          Partial or empty result pages are possible even before the end of the files list has been reached.
+          Acceptable values are 1 to 1000, inclusive.
+      pageToken:
+        type: string
+        required: false
+        description: |
+          The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+      q:
+        type: string
+        required: false
+        description: |
+          A query for filtering the file results. See the "Search for files" guide for the supported syntax.
+      spaces:
+        type: string
+        required: false
+        enum: [drive, appDataFolder, photos]
+        description: |
+          A comma-separated list of spaces to query within the corpus.
+
+          Supported values are `drive`, `appDataFolder` and `photos`.
+      supportsAllDrives:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: This parameter will only be effective until June 1, 2020. Afterwards all applications are assumed to support shared drives.
+        type: boolean
+        required: false
+        default: false
+        description: |
+          Whether the requesting application supports both My Drives and shared drives.
+      supportsTeamDrives:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: Use "supportsAllDrives" instead.
+        type: boolean
+        required: false
+        default: false
+      teamDriveId:
+        (Annotations.deprecated):
+          Message: This property is deprecated.
+          Hint: Use "driveId" instead.
+        type: string
+        required: false
     responses:
       200:
         body:
